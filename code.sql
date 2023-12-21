@@ -17,7 +17,7 @@ SELECT r.name
 FROM regions r 
 JOIN continents c ON c.continent_id = r.continent_id 
 WHERE c.name = 'Europe'
-ORDER BY name;
+ORDER BY r.name;
 
 -- 4. Contare quante regioni sono presenti nel continente Africa
 
@@ -46,14 +46,14 @@ SELECT l.`language`
 FROM countries c 
 JOIN country_languages cl ON cl.country_id = c.country_id 
 JOIN languages l ON l.language_id = cl.language_id 
-WHERE c.name = 'Albania';
+WHERE c.name = 'Albania' AND cl.official = 1;
 
 -- 8. Selezionare il Gross domestic product (GDP) medio dello United Kingdom tra il 2000 e il 2010
 
 SELECT avg(cs.gdp)
 FROM country_stats cs 
 JOIN countries c ON c.country_id = cs.country_id 
-WHERE cs.`year` >= 2000 AND cs.`year` <= 2010;
+WHERE c.name = 'United Kingdom' AND cs.`year` >= 2000 AND cs.`year` <= 2010;
 
 -- 9. Selezionare tutte le nazioni in cui si parla hindi, ordinate dalla più estesa alla meno estesa
 
@@ -62,7 +62,7 @@ FROM countries c
 JOIN country_languages cl ON cl.country_id = c.country_id 
 JOIN languages l ON l.language_id = cl.language_id 
 WHERE l.`language` = 'Hindi'
-ORDER BY c.area 
+ORDER BY c.area DESC
 
 -- 10. Modificare la nazione di nome Italy, inserendo come national day il 2 giugno 1946
 
