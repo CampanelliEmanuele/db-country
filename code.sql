@@ -66,18 +66,37 @@ ORDER BY c.area
 
 -- 10. Modificare la nazione di nome Italy, inserendo come national day il 2 giugno 1946
 
+UPDATE countries c
+SET c.national_day = '1946-06-02'
+WHERE c.name = "Italy";
 
+SELECT *
+FROM countries c 
+WHERE c.name = 'Italy'
 
 -- BONUS BONUS
 
 -- 11. Selezionare le nazioni il cui national day è avvenuto prima del 1900, ordinate per national day dal più recente al meno recente
 
-
+SELECT *
+FROM countries c 
+WHERE YEAR(c.national_day) < 1900
+ORDER BY YEAR(c.national_day) DESC;
 
 -- 12. Contare quante lingue sono parlate in Italia
 
-
+SELECT count(*)
+FROM countries c 
+JOIN country_languages cl ON cl.country_id = c.country_id 
+JOIN languages l ON l.language_id = cl.language_id 
+WHERE c.name = 'Italy'
 
 -- 13. Per la regione Antarctica mostrare il valore dell’area totale e dell’area media delle nazioni
+
+SELECT sum(c.area), avg(c.area)
+FROM regions r 
+JOIN countries c ON c.region_id = r.region_id 
+WHERE r.name = 'Antarctica'
+
 
 
